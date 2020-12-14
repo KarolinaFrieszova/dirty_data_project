@@ -1891,9 +1891,34 @@ decathlon &lt;- read_csv(&quot;task1/clean_data/decathlon.csv&quot;)</code></pre
 <!-- rnb-frame-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<ol start="5" style="list-style-type: decimal">
+<li>The average points for competitors who ran the 400m in less than 50 seconds vs. those than ran 400m in more than 50 seconds.</li>
+</ol>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGVjYXRobG9uICU+JSBcbiAgZ3JvdXBfYnkoc3ByaW50XzQwMG0gPCA1MCkgJT4lIFxuICBzdW1tYXJpc2UoYXZnX3BvaW50cyA9IG1lYW4ocG9pbnRzKSlcbmBgYCJ9 -->
+<pre class="r"><code>decathlon %&gt;% 
+  group_by(sprint_400m &lt; 50) %&gt;% 
+  summarise(avg_points = mean(points))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiYHN1bW1hcmlzZSgpYCB1bmdyb3VwaW5nIG91dHB1dCAob3ZlcnJpZGUgd2l0aCBgLmdyb3Vwc2AgYXJndW1lbnQpXG4ifQ== -->
+<pre><code>`summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MiwibmNvbCI6Mn0sInJkZiI6Ikg0c0lBQUFBQUFBQUF3dHlpVERtaXVCaVlHQmdabUJtQTVLc1FDWURhMmlJbTY0RkF3TUxFNUREeU1EQ3dBbWlLNERTd2tBR1NKQUxTak9BRlRBdzhJSDREdnYwdFZhdFdyWGFZZitPNm1tQ3kzZWlHY0NhbDVpYldneGtDSUExUXdRRmlndUtNdk5LNGswTURISVZiQlJNRGFEaVhJbGw2ZkVGK1VDcFlqUmpPSXZ5eS9WZ1J2R0NqR29BRXYvLy8vK0hibDl5VG1JeHpENllJRmRLWWttaVhsb1JVRCtRaDY2RlBiK2dKRE0vRDZpSkNlUlRWalROakVWb0F2eWxlU0NYcE9nbVo1VG1aZXVhUVVPR0VSb3l2RkEyRXlvYlpDWFRmNmhSckZDajJGTHowalB6VW1GdXowbE1TczJCY3ZpQVBnWjdXQThjVmpDZkFFV0w5VXJ5U3hKaDZyaVM4M05nSW1DL01md0RBTlRzM09EZ0FRQUEifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["sprint_400m < 50"],"name":[1],"type":["lgl"],"align":["right"]},{"label":["avg_points"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"FALSE","2":"7727.167"},{"1":"TRUE","2":"8120.483"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[2]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTkFcbmBgYCJ9 -->
+<pre class="r"><code>NA</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiRGVjYXRobG9uIERhdGEgQW5hbHlzaXMiCm91dHB1dDogaHRtbF9ub3RlYm9vawotLS0KCmBgYHtyfQpsaWJyYXJ5KHRpZHl2ZXJzZSkKCmRlY2F0aGxvbiA8LSByZWFkX3JkcygiL1VzZXJzL2NvZGVjbGFuc3R1ZGVudC9jb2RlY2xhbl9wcm9qZWN0cy9kaXJ0eV9kYXRhX3Byb2plY3Rfa2Fyb2xpbmEvdGFzazEvY2xlYW5fZGF0YS9kZWNhdGhsb24ucmRzIikKYGBgCgoKMS4gQXRobGV0ZSB3aXRoIGxvbmdlc3QgbG9uZyBqdW1wIHNlZW4gaW4gdGhlIGRhdGEKCmBgYHtyfQpkZWNhdGhsb24gJT4lCiAgc2VsZWN0KGF0aGxldGUsIGxvbmdfanVtcCkgJT4lIAogIHNsaWNlX21heChsb25nX2p1bXApCmBgYAoyLiBBdmVyYWdlIDEwMG0gdGltZSBwZXIgY29tcGV0aXRpb24KCmBgYHtyfQpkZWNhdGhsb24gJT4lIAogIGdyb3VwX2J5KGNvbXBldGl0aW9uKSAlPiUKICBzdW1tYXJpc2UoYXZnXzEwMG1fdGltZSA9IG1lYW4oc3ByaW50XzEwMG0pKQogIApgYGAKCjMuIEF0aGxldGUgd2l0aCB0aGUgaGlnaGVzdCB0b3RhbCBwb2ludHMgYWNyb3NzIGJvdGggY29tcGV0aXRpb25zCgpgYGB7cn0KZGVjYXRobG9uICU+JSAKICBncm91cF9ieShjb21wZXRpdGlvbikgJT4lIAogIHNsaWNlX21heChwb2ludHMpICU+JSAKICBzZWxlY3QoYXRobGV0ZSwgcG9pbnRzLCBjb21wZXRpdGlvbikKICAKYGBgCgo0LiBUaGUgc2hvdC1wdXQgc2NvcmVzIGZvciB0aGUgdG9wIHRocmVlIGNvbXBldGl0b3JzIGluIGVhY2ggY29tcGV0aXRpb24KCmBgYHtyfQpkZWNhdGhsb24gJT4lIAogIGdyb3VwX2J5KGNvbXBldGl0aW9uKSAlPiUgCiAgZmlsdGVyKHJhbmsgJWluJSBjKDEsIDIsIDMpKSAlPiUgCiAgc2VsZWN0KGF0aGxldGUsIHNob3RfcHV0LCBjb21wZXRpdGlvbikKYGBgCgo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiRGVjYXRobG9uIERhdGEgQW5hbHlzaXMiCm91dHB1dDogaHRtbF9ub3RlYm9vawotLS0KCmBgYHtyfQpsaWJyYXJ5KHRpZHl2ZXJzZSkKCmRlY2F0aGxvbiA8LSByZWFkX3JkcygiL1VzZXJzL2NvZGVjbGFuc3R1ZGVudC9jb2RlY2xhbl9wcm9qZWN0cy9kaXJ0eV9kYXRhX3Byb2plY3Rfa2Fyb2xpbmEvdGFzazEvY2xlYW5fZGF0YS9kZWNhdGhsb24ucmRzIikKYGBgCgoKMS4gQXRobGV0ZSB3aXRoIGxvbmdlc3QgbG9uZyBqdW1wIHNlZW4gaW4gdGhlIGRhdGEKCmBgYHtyfQpkZWNhdGhsb24gJT4lCiAgc2VsZWN0KGF0aGxldGUsIGxvbmdfanVtcCkgJT4lIAogIHNsaWNlX21heChsb25nX2p1bXApCmBgYAoyLiBBdmVyYWdlIDEwMG0gdGltZSBwZXIgY29tcGV0aXRpb24KCmBgYHtyfQpkZWNhdGhsb24gJT4lIAogIGdyb3VwX2J5KGNvbXBldGl0aW9uKSAlPiUKICBzdW1tYXJpc2UoYXZnXzEwMG1fdGltZSA9IG1lYW4oc3ByaW50XzEwMG0pKQogIApgYGAKCjMuIEF0aGxldGUgd2l0aCB0aGUgaGlnaGVzdCB0b3RhbCBwb2ludHMgYWNyb3NzIGJvdGggY29tcGV0aXRpb25zCgpgYGB7cn0KZGVjYXRobG9uICU+JSAKICBncm91cF9ieShjb21wZXRpdGlvbikgJT4lIAogIHNsaWNlX21heChwb2ludHMpICU+JSAKICBzZWxlY3QoYXRobGV0ZSwgcG9pbnRzLCBjb21wZXRpdGlvbikKICAKYGBgCgo0LiBUaGUgc2hvdC1wdXQgc2NvcmVzIGZvciB0aGUgdG9wIHRocmVlIGNvbXBldGl0b3JzIGluIGVhY2ggY29tcGV0aXRpb24KCmBgYHtyfQpkZWNhdGhsb24gJT4lIAogIGdyb3VwX2J5KGNvbXBldGl0aW9uKSAlPiUgCiAgZmlsdGVyKHJhbmsgJWluJSBjKDEsIDIsIDMpKSAlPiUgCiAgc2VsZWN0KGF0aGxldGUsIHNob3RfcHV0LCBjb21wZXRpdGlvbikKYGBgCjUuIFRoZSBhdmVyYWdlIHBvaW50cyBmb3IgY29tcGV0aXRvcnMgd2hvIHJhbiB0aGUgNDAwbSBpbiBsZXNzIHRoYW4gNTAgc2Vjb25kcyB2cy4gdGhvc2UgdGhhbiByYW4gNDAwbSBpbiBtb3JlIHRoYW4gNTAgc2Vjb25kcy4KCmBgYHtyfQpkZWNhdGhsb24gJT4lIAogIGdyb3VwX2J5KHNwcmludF80MDBtIDwgNTApICU+JSAKICBzdW1tYXJpc2UoYXZnX3BvaW50cyA9IG1lYW4ocG9pbnRzKSkKICAKYGBgCgoK</div>
 
 
 
