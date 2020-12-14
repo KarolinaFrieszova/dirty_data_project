@@ -10,14 +10,14 @@ decathlon <- read_rds("/Users/codeclanstudent/codeclan_projects/dirty_data_proje
 ```
 
 
-1. Who had the longest long jump seen in the data?
+1. Athlete with longest long jump seen in the data
 
 ```{r}
 decathlon %>%
   select(athlete, long_jump) %>% 
   slice_max(long_jump)
 ```
-2. What was the average 100m time in each competition?
+2. Average 100m time per competition
 
 ```{r}
 decathlon %>% 
@@ -26,7 +26,7 @@ decathlon %>%
   
 ```
 
-3. Who had the highest total points across both competitions?
+3. Athlete with the highest total points across both competitions
 
 ```{r}
 decathlon %>% 
@@ -34,5 +34,14 @@ decathlon %>%
   slice_max(points) %>% 
   select(athlete, points, competition)
   
+```
+
+4. The shot-put scores for the top three competitors in each competition
+
+```{r}
+decathlon %>% 
+  group_by(competition) %>% 
+  filter(rank %in% c(1, 2, 3)) %>% 
+  select(athlete, shot_put, competition)
 ```
 
