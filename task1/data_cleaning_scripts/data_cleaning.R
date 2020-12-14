@@ -19,5 +19,6 @@ decathlon <- decathlon %>%
          athlete = str_replace(athlete, "Mcmullen", "McMullen"),
          competition = str_replace_all(competition, "OlympicG", "Olympic_Games"))
 
-write_rds(decathlon, "clean_data/decathlon.rds")
+# save cleaned data into clean_data folder
 
+write_rds(decathlon, "clean_data/decathlon.rds")
