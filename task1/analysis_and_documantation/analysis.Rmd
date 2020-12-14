@@ -1,0 +1,38 @@
+---
+title: "Decathlon Data Analysis"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+
+decathlon <- read_rds("/Users/codeclanstudent/codeclan_projects/dirty_data_project_karolina/task1/clean_data/decathlon.rds")
+```
+
+
+1. Who had the longest long jump seen in the data?
+
+```{r}
+decathlon %>%
+  select(athlete, long_jump) %>% 
+  slice_max(long_jump)
+```
+2. What was the average 100m time in each competition?
+
+```{r}
+decathlon %>% 
+  group_by(competition) %>%
+  summarise(avg_100m_time = mean(sprint_100m))
+  
+```
+
+3. Who had the highest total points across both competitions?
+
+```{r}
+decathlon %>% 
+  group_by(competition) %>% 
+  slice_max(points) %>% 
+  select(athlete, points, competition)
+  
+```
+
