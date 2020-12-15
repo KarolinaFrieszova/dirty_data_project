@@ -49,7 +49,30 @@ candy_2016 <- candy_2016 %>%
             please_list_any_items_not_included_above_that_give_you_joy:york_peppermint_patties_ignore,
             hugs_actual_physical_hugs))
 
+# CANDY 2015
 
+# cleaning variable names
+
+candy_2015 <- clean_names(candy_2015)
+names(candy_2015)
+
+# excluding variables not needed for data analysis
+
+candy_2015 <- candy_2015 %>% 
+  select(-c(timestamp, cash_or_other_forms_of_legal_tender , 
+            creepy_religious_comics_chick_tracts, healthy_fruit, kale_smoothie,
+            white_bread, whole_wheat_anything,
+            please_leave_any_remarks_or_comments_regarding_your_choices:please_estimate_the_degree_s_of_separation_you_have_from_the_following_celebrities_francis_bacon_1561_1626,
+            which_day_do_you_prefer_friday_or_sunday:please_estimate_the_degrees_of_separation_you_have_from_the_following_folks_beyonce_knowles)
+         )
+
+# check variable names across tables
+
+names(candy_2016) %in% names(candy_2017)
+
+names(candy_2017) %in% names(candy_2016)
+
+names(candy_2015) %in% names(candy_2017)
 
 # rename variables to march names across tables
 
@@ -64,8 +87,11 @@ candy_2016 <- candy_2016 %>%
          anonymous_brown_globs_that_come_in_black_and_orange_wrappers_a_k_a_mary_janes = anonymous_brown_globs_that_come_in_black_and_orange_wrappers,
          independent_m_ms = third_party_m_ms)
 
-names(candy_2016) %in% names(candy_2017)
-names(candy_2017) %in% names(candy_2016)
+candy_2015 <- candy_2015 %>% 
+  rename(trick_or_treat = are_you_going_actually_going_trick_or_treating_yourself,
+         age = how_old_are_you)
+
+# alter the table look
 
 table_2017<- candy_2017 %>% 
   pivot_longer(cols = x100_grand_bar:york_peppermint_patties,
