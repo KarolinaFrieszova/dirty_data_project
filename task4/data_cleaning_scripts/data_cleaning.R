@@ -54,7 +54,6 @@ candy_2016 <- candy_2016 %>%
 # cleaning variable names
 
 candy_2015 <- clean_names(candy_2015)
-names(candy_2015)
 
 # excluding variables not needed for data analysis
 
@@ -75,7 +74,7 @@ names(candy_2017) %in% names(candy_2016)
 
 names(candy_2015) %in% names(candy_2017)
 
-names(candy_2017)
+names(candy_2017) %in% names(candy_2015)
 
 # rename variables to march names across tables
 
@@ -95,11 +94,10 @@ candy_2015 <- candy_2015 %>%
          age = how_old_are_you, 
          anonymous_brown_globs_that_come_in_black_and_orange_wrappers_a_k_a_mary_janes = anonymous_brown_globs_that_come_in_black_and_orange_wrappers,
          bonkers_the_candy = bonkers,
-         boxo_raisins = boxo_raisins,
+         boxo_raisins = box_o_raisins,
          hersheys_dark_chocolate = dark_chocolate_hershey,
          hersheys_kisses = hershey_s_kissables,
-         sweetums_a_friend_to_diabetes = sweetums
-         )
+         sweetums_a_friend_to_diabetes = sweetums)
 
 # alter the table look
 
@@ -112,3 +110,20 @@ table_2016<- candy_2016 %>%
   pivot_longer(cols = x100_grand_bar:york_peppermint_patties,
                names_to = "candy_type",
                values_to = "feeling")
+
+table_2015<- candy_2015 %>% 
+  pivot_longer(cols = butterfinger:necco_wafers,
+               names_to = "candy_type",
+               values_to = "feeling")
+
+# add year column to data frames
+
+table_2017$year <- 2017
+
+table_2016$year <- 2016
+
+table_2015$year <- 2015
+
+# bind rows
+
+candy <- bind_rows(table_2015, table_2016, table_2017)
