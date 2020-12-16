@@ -59,9 +59,10 @@ names(candy_2015)
 # excluding variables not needed for data analysis
 
 candy_2015 <- candy_2015 %>% 
-  select(-c(timestamp, cash_or_other_forms_of_legal_tender , 
+  select(-c(timestamp, cash_or_other_forms_of_legal_tender, lapel_pins, 
             creepy_religious_comics_chick_tracts, healthy_fruit, kale_smoothie,
-            white_bread, whole_wheat_anything,
+            white_bread, whole_wheat_anything, hugs_actual_physical_hugs,
+            peterson_brand_sidewalk_chalk,
             please_leave_any_remarks_or_comments_regarding_your_choices:please_estimate_the_degree_s_of_separation_you_have_from_the_following_celebrities_francis_bacon_1561_1626,
             which_day_do_you_prefer_friday_or_sunday:please_estimate_the_degrees_of_separation_you_have_from_the_following_folks_beyonce_knowles)
          )
@@ -73,6 +74,8 @@ names(candy_2016) %in% names(candy_2017)
 names(candy_2017) %in% names(candy_2016)
 
 names(candy_2015) %in% names(candy_2017)
+
+names(candy_2017)
 
 # rename variables to march names across tables
 
@@ -89,7 +92,14 @@ candy_2016 <- candy_2016 %>%
 
 candy_2015 <- candy_2015 %>% 
   rename(trick_or_treat = are_you_going_actually_going_trick_or_treating_yourself,
-         age = how_old_are_you)
+         age = how_old_are_you, 
+         anonymous_brown_globs_that_come_in_black_and_orange_wrappers_a_k_a_mary_janes = anonymous_brown_globs_that_come_in_black_and_orange_wrappers,
+         bonkers_the_candy = bonkers,
+         boxo_raisins = boxo_raisins,
+         hersheys_dark_chocolate = dark_chocolate_hershey,
+         hersheys_kisses = hershey_s_kissables,
+         sweetums_a_friend_to_diabetes = sweetums
+         )
 
 # alter the table look
 
