@@ -172,13 +172,10 @@ candy <- candy %>%
 
 candy <- candy %>% 
   mutate(age = as.numeric(str_extract(age, "[0-9]+"))) %>% 
-  mutate(age = na_if(age, age > 122))
-doggy_data <- candy %>% 
-  distinct(age)
+  mutate(age = ifelse(age == Inf, NA_integer_, age)) %>% 
+  mutate(age = ifelse(age > 122, NA_integer_, age))
 
 # save cleaned data frame
-
-write_excel_csv(candy, "clean_data/candy.xlsx")
 
 write_csv(candy, "clean_data/candy.csv")
 
