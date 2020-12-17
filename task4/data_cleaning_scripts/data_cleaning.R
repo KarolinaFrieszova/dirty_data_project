@@ -127,3 +127,49 @@ table_2015$year <- 2015
 # bind rows
 
 candy <- bind_rows(table_2015, table_2016, table_2017)
+
+# CLEAN COUNTRY COLUMN
+
+# unify all data frame text
+
+candy <- candy %>% 
+  mutate(country = str_to_lower(country),
+         trick_or_treat = str_to_lower(trick_or_treat),
+         feeling = str_to_lower(feeling))
+
+# create new table with distinct country names
+
+distinct_countries <- candy %>% 
+  distinct(country)
+
+# string match countries' names from USA, UK, Canada
+    
+candy <- candy %>% 
+  mutate(country = case_when(
+    country %in% c("us", "united states", "ussa", "united states of america",
+                   "america", "u.s.a.", "murica", "usa!", "units states",
+                   "u.s.", "usa usa usa", 
+                   "usa (i think but it's an election year so who can really tell)",
+                   "the best one - usa", "usa! usa! usa!", "usa!!!!!!", 
+                   "usa! usa!", "united sates", "merica", "united stetes",
+                   "usa usa usa usa", "united  states of america", "united state",
+                   "united staes", "usausausa", "us of a", "unites states",
+                   "the united states", "north carolina", "unied states",
+                   "u s", "the united states of america", "unite states",
+                   "usa? hard to tell anymore..", "'merica", "usas",
+                   "pittsburgh", "new york", "california", "united stated",
+                   "ahem....amerca", "new jersey", "united ststes",
+                   "united statss", "usaa", "alaska", "u s a", "united statea",
+                   "usa usa usa!!!!", "murrika",
+                   "i pretend to be from canada, but i am really from the united states.") ~ "usa",
+    country %in% c("united kingdom", "england", "scotland", "united kindom", 
+                   "u.k.", "endland") ~ "uk",
+    country %in% c("sub-canadian north america... 'merica", "can", "canada`",
+                   "n. america") ~ "canada",
+    T ~ country))
+
+# save cleaned data frame
+
+write_excel_csv(candy, "clean_data/candy.xlsx")
+
+write_csv(candy, "clean_data/candy.csv")
