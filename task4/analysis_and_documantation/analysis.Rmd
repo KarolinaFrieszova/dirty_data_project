@@ -21,41 +21,113 @@ The average age of people who are going out trick or treating and the average ag
 
 ```{r}
 all_candy %>%
-  select(trick_or_treat, age) %>% 
-  drop_na() %>% 
+  drop_na(trick_or_treat) %>% 
   group_by(trick_or_treat) %>% 
-  summarise(avg_age = mean(age))
-```
-```{r}
-all_candy %>% 
-  distinct(trick_or_treat)
-```
-
-```{r}
-all_candy %>% 
-  filter(trick_or_treat == "yes") %>% 
-  summarise(age_t_or_t = round(mean(age, na.rm = T)))
+  summarise(avg_age = mean(age, na.rm = T))
 ```
 
 For each of joy, despair and meh, which candy bar revived the most of these ratings?
 
 ```{r}
-all_candy %>%
-  select(candy_type, feeling) %>% 
-  drop_na(feeling) %>% 
-  group_by(feeling) %>% 
-  summarise(n())
+
 ```
-```{r}
-all_candy %>% 
-  group_by(candy_type) %>% 
-  filter(feeling == "joy") %>% 
-  slice_max(cad)
-```
+
+
+How many people rated Starburst as despair?
 
 ```{r}
 all_candy %>% 
+  filter(candy_type == "starburst" & feeling == "despair") %>% 
+  summarise(count_starburst_despair = n())
+```
+Count despair as -1, joy as +1 and meh as 0
+
+```{r}
+num_feeling_candy <- all_candy %>% 
+  mutate(feeling = case_when(
+    feeling == "joy" ~ 1,
+    feeling == "despair" ~ -1,
+    feeling == "meh" ~ 0,
+    T ~ NA_real_
+  ))
+```
+
+The most popular candy bars by above rating system for each gender in the dataset
+
+```{r}
+num_feeling_candy %>% 
+  filter(gender == "female") %>% 
   group_by(candy_type) %>% 
-  
+  summarise(score = sum(feeling, na.rm = T)) %>% 
+  arrange(desc(score)) %>% 
+  head(2)
+```
+
+```{r}
+num_feeling_candy %>% 
+  filter(gender == "male") %>% 
+  group_by(candy_type) %>% 
+  summarise(score = sum(feeling, na.rm = T)) %>% 
+  arrange(desc(score)) %>% 
+  head(2)
+```
+
+The most popular candy bar in each year
+
+```{r}
+num_feeling_candy %>% 
+  filter(year == "2015") %>% 
+  group_by(candy_type) %>% 
+  summarise(favorite = sum(feeling, na.rm = T)) %>% 
+  arrange(desc(favorite)) %>% 
+  head(2)
+```
+
+```{r}
+num_feeling_candy %>% 
+  filter(year == "2016") %>% 
+  group_by(candy_type) %>% 
+  summarise(favorite = sum(feeling, na.rm = T)) %>% 
+  arrange(desc(favorite)) %>% 
+  head(2)
+```
+
+
+```{r}
+num_feeling_candy %>% 
+  filter(year == "2017") %>% 
+  group_by(candy_type) %>% 
+  summarise(favorite = sum(feeling, na.rm = T)) %>% 
+  arrange(desc(favorite)) %>% 
+  head(2)
+```
+
+What was the most popular candy bar by this rating for people in US, Canada, UK and all other countries?
+
+```{r}
+num_feeling_candy %>% 
+  filter(country == "usa") %>% 
+  group_by(candy_type) %>% 
+  summarise(favorite = sum(feeling, na.rm = T)) %>% 
+  arrange(desc(favorite)) %>% 
+  head(2)
+```
+
+```{r}
+num_feeling_candy %>% 
+  filter(country == "uk") %>% 
+  group_by(candy_type) %>% 
+  summarise(favorite = sum(feeling, na.rm = T)) %>% 
+  arrange(desc(favorite)) %>% 
+  head(2)
+```
+
+```{r}
+num_feeling_candy %>% 
+  filter(country == "canada") %>% 
+  group_by(candy_type) %>% 
+  summarise(favorite = sum(feeling, na.rm = T)) %>% 
+  arrange(desc(favorite)) %>% 
+  head(2)
 ```
 
