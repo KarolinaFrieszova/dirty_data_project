@@ -29,7 +29,7 @@ candy_2017 <- candy_2017 %>%
             media_daily_dish, media_science, media_espn, media_espn, media_yahoo,
             click_coordinates_x_y, internal_id, 
             creepy_religious_comics_chick_tracts, healthy_fruit, kale_smoothie, 
-            white_bread, whole_wheat_anything, 
+            white_bread, whole_wheat_anything, broken_glow_stick,
             sandwich_sized_bags_filled_with_boo_berry_crunch))
 
 # CANDY 2016
@@ -45,7 +45,7 @@ candy_2016 <- candy_2016 %>%
             bonkers_the_board_game, cash_or_other_forms_of_legal_tender,
             creepy_religious_comics_chick_tracts, healthy_fruit, 
             kale_smoothie, person_of_interest_season_3_dvd_box_set_not_including_disc_4_with_hilarious_outtakes,
-            white_bread, whole_wheat_anything, 
+            white_bread, whole_wheat_anything, broken_glow_stick,
             please_list_any_items_not_included_above_that_give_you_joy:york_peppermint_patties_ignore,
             hugs_actual_physical_hugs))
 
@@ -61,18 +61,12 @@ candy_2015 <- candy_2015 %>%
   select(-c(timestamp, cash_or_other_forms_of_legal_tender, lapel_pins, 
             creepy_religious_comics_chick_tracts, healthy_fruit, kale_smoothie,
             white_bread, whole_wheat_anything, hugs_actual_physical_hugs,
-            peterson_brand_sidewalk_chalk,
+            peterson_brand_sidewalk_chalk, broken_glow_stick,
             please_leave_any_remarks_or_comments_regarding_your_choices:please_estimate_the_degree_s_of_separation_you_have_from_the_following_celebrities_francis_bacon_1561_1626,
             which_day_do_you_prefer_friday_or_sunday:please_estimate_the_degrees_of_separation_you_have_from_the_following_folks_beyonce_knowles)
          )
 
 # check variable names across tables
-
-names(candy_2016) %in% names(candy_2017)
-
-names(candy_2017) %in% names(candy_2016)
-
-names(candy_2015) %in% names(candy_2017)
 
 names(candy_2017) %in% names(candy_2015)
 
@@ -99,50 +93,51 @@ candy_2015 <- candy_2015 %>%
          hersheys_kisses = hershey_s_kissables,
          sweetums_a_friend_to_diabetes = sweetums)
 
-# alter the table look
+# reorganise the columns and rows cross tables
 
-table_2017<- candy_2017 %>% 
+candy_2017<- candy_2017 %>% 
   pivot_longer(cols = x100_grand_bar:york_peppermint_patties,
                names_to = "candy_type",
-               values_to = "feeling")
+               values_to = "ranking")
 
-table_2016<- candy_2016 %>% 
+candy_2016<- candy_2016 %>% 
   pivot_longer(cols = x100_grand_bar:york_peppermint_patties,
                names_to = "candy_type",
-               values_to = "feeling")
+               values_to = "ranking")
 
-table_2015<- candy_2015 %>% 
+candy_2015<- candy_2015 %>% 
   pivot_longer(cols = butterfinger:necco_wafers,
                names_to = "candy_type",
-               values_to = "feeling")
+               values_to = "ranking")
 
 # add year column to data frames
 
-table_2017$year <- 2017
+candy_2017$year <- 2017
 
-table_2016$year <- 2016
+candy_2016$year <- 2016
 
-table_2015$year <- 2015
+candy_2015$year <- 2015
 
 # bind rows
 
-candy <- bind_rows(table_2015, table_2016, table_2017)
-
-# CLEAN COUNTRY COLUMN
+candy <- bind_rows(candy_2017, candy_2016, candy_2015)
 
 # unify casing for all text data
 
 candy <- candy %>% 
   mutate(country = str_to_lower(country),
          trick_or_treat = str_to_lower(trick_or_treat),
-         feeling = str_to_lower(feeling))
+         ranking = str_to_lower(ranking),
+         gender = str_to_lower(gender))
+
+# CLEAN COUNTRY COLUMN
 
 # create new table with distinct country names
 
 distinct_countries <- candy %>% 
   distinct(country)
 
-# unify the variations of strings for particular country entry
+# unify the text entries of per particular country
     
 candy <- candy %>% 
   mutate(country = case_when(
@@ -168,12 +163,19 @@ candy <- candy %>%
                    "n. america") ~ "canada",
     T ~ country))
 
-# clean age column, extract numeric values, and convert unreasonable numbers to NA
+# clean age column, extract numeric values, convert to numerical,
+# and change unreasonable entries to NA
 
 candy <- candy %>% 
   mutate(age = as.numeric(str_extract(age, "[0-9]+"))) %>% 
   mutate(age = ifelse(age == Inf, NA_integer_, age)) %>% 
   mutate(age = ifelse(age > 122, NA_integer_, age))
+
+# clean gender column 
+
+candy <- candy %>% 
+  mutate(gender = ifelse(
+    gender == "other" | gender == "i'd rather not say", NA, gender))
 
 # save cleaned data frame
 
