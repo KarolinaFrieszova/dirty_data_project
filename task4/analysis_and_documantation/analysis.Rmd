@@ -17,17 +17,45 @@ all_candy %>%
   filter(!is.na(feeling)) %>% 
   summarise(total_feeling_ratings = n())
 ```
-What was the average age of people who are going out trick or treating and the average age of people 3. not going trick or treating?
+The average age of people who are going out trick or treating and the average age of people who are not going trick or treating.
 
 ```{r}
-age_table <- all_candy %>% 
-  filter(trick_or_treat == "yes")
+all_candy %>%
+  select(trick_or_treat, age) %>% 
+  drop_na() %>% 
+  group_by(trick_or_treat) %>% 
+  summarise(avg_age = mean(age))
+```
+```{r}
+all_candy %>% 
+  distinct(trick_or_treat)
 ```
 
 ```{r}
 all_candy %>% 
-  filter(trick_or_treat == "yes",
-         !is.na(age)) %>% 
-  summarise(age_t_or_t = mean(age))
+  filter(trick_or_treat == "yes") %>% 
+  summarise(age_t_or_t = round(mean(age, na.rm = T)))
+```
+
+For each of joy, despair and meh, which candy bar revived the most of these ratings?
+
+```{r}
+all_candy %>%
+  select(candy_type, feeling) %>% 
+  drop_na(feeling) %>% 
+  group_by(feeling) %>% 
+  summarise(n())
+```
+```{r}
+all_candy %>% 
+  group_by(candy_type) %>% 
+  filter(feeling == "joy") %>% 
+  slice_max(cad)
+```
+
+```{r}
+all_candy %>% 
+  group_by(candy_type) %>% 
+  
 ```
 

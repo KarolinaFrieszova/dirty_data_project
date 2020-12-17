@@ -171,9 +171,10 @@ candy <- candy %>%
 # clean age column, extract numeric values, and convert unreasonable numbers to NA
 
 candy <- candy %>% 
-  mutate(age = as.numeric(str_extract(age, "[0-9]+")),
-         age = na_if(age, age > 122))
-
+  mutate(age = as.numeric(str_extract(age, "[0-9]+"))) %>% 
+  mutate(age = na_if(age, age > 122))
+doggy_data <- candy %>% 
+  distinct(age)
 
 # save cleaned data frame
 
