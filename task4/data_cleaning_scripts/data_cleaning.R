@@ -130,7 +130,7 @@ candy <- bind_rows(table_2015, table_2016, table_2017)
 
 # CLEAN COUNTRY COLUMN
 
-# unify all data frame text
+# unify casing for all text data
 
 candy <- candy %>% 
   mutate(country = str_to_lower(country),
@@ -142,7 +142,7 @@ candy <- candy %>%
 distinct_countries <- candy %>% 
   distinct(country)
 
-# string match countries' names from USA, UK, Canada
+# unify the variations of strings for particular country entry
     
 candy <- candy %>% 
   mutate(country = case_when(
@@ -168,8 +168,17 @@ candy <- candy %>%
                    "n. america") ~ "canada",
     T ~ country))
 
+# clean age column, extract numeric values, and convert unreasonable numbers to NA
+
+candy <- candy %>% 
+  mutate(age = as.numeric(str_extract(age, "[0-9]+")),
+         age = na_if(age, age > 122))
+
+
 # save cleaned data frame
 
 write_excel_csv(candy, "clean_data/candy.xlsx")
 
 write_csv(candy, "clean_data/candy.csv")
+
+

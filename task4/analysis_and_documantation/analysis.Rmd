@@ -2,6 +2,32 @@
 title: "Candy Data Analysis"
 output: html_notebook
 ---
+```{r}
+library(tidyverse)
+```
 
-T
+```{r}
+all_candy <- read_csv("/Users/codeclanstudent/codeclan_projects/dirty_data_project_karolina/task4/clean_data/candy.csv")
+```
+
+The total number of candy ratings (not raters) given across the three years.
+
+```{r}
+all_candy %>%
+  filter(!is.na(feeling)) %>% 
+  summarise(total_feeling_ratings = n())
+```
+What was the average age of people who are going out trick or treating and the average age of people 3. not going trick or treating?
+
+```{r}
+age_table <- all_candy %>% 
+  filter(trick_or_treat == "yes")
+```
+
+```{r}
+all_candy %>% 
+  filter(trick_or_treat == "yes",
+         !is.na(age)) %>% 
+  summarise(age_t_or_t = mean(age))
+```
 
