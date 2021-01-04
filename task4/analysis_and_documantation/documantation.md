@@ -4,7 +4,7 @@ How do we feel about different candies when we receive them in our Halloween hau
 These are the questions that the analysis attempts to answer.
 
 ### Format of Raw Data
-The Halloween data comes in the form of three data tables. Each table stores data from the Candy Hierarchy survey per single year (2015, 2016, 2017).
+The Halloween data comes in the form of three messy data tables. Each table stores data from the Candy Hierarchy survey per single year (2015, 2016, 2017).
 
 ### Approach to Data Cleaning
 Before creating a single dataset (done for each table separately)
@@ -20,7 +20,6 @@ After binding to a single dataset
 * unify casing for all the text data
 * clean country column - unify the text entries of per particular country
 * clean age column - extract first numerical value, convert to numerical, and change unreasonable entries to missing value represented by NA
-* clean gender column - leave only valid entries
 
 ### Findings
 1. The clean dataset corresponds to a total of 689203 candy ratings. 

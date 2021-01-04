@@ -171,12 +171,6 @@ candy <- candy %>%
   mutate(age = ifelse(age == Inf, NA_integer_, age)) %>% 
   mutate(age = ifelse(age > 122, NA_integer_, age))
 
-# clean gender column 
-
-candy <- candy %>% 
-  mutate(gender = ifelse(
-    gender == "other" | gender == "i'd rather not say", NA, gender))
-
 # save cleaned data frame
 
 write_csv(candy, "clean_data/candy.csv")

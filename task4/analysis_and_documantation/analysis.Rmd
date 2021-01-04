@@ -57,6 +57,16 @@ candy %>%
   head(1)
 ```
 
+Alternative way
+
+```{r}
+candy %>%
+  filter(!is.na(ranking)) %>%
+  group_by(ranking, candy_type) %>%
+  summarise(count = n()) %>%
+  filter(count == max(count))
+```
+
 
 4. How many people rated Starburst as despair?
 
@@ -97,6 +107,16 @@ num_in_ranking %>%
   head(2)
 ```
 
+Alternative way
+
+```{r}
+num_in_ranking %>%
+  filter(!is.na(gender)) %>% 
+  group_by(gender, candy_type) %>%
+  summarise(avg_ranking = mean(ranking, na.rm = TRUE)) %>%
+  filter(avg_ranking == max(avg_ranking))
+```
+
 7. The most popular candy bar in each year
 
 ```{r}
@@ -126,6 +146,16 @@ num_in_ranking %>%
   arrange(desc(favorite)) %>% 
   head(2)
 ```
+
+Alternative way
+
+```{r}
+num_in_ranking %>%
+  group_by(year, candy_type) %>%
+  summarise(avg_ranking = mean(ranking, na.rm = TRUE)) %>%
+  filter(avg_ranking == max(avg_ranking))
+```
+
 
 8. The most popular candy bar by above rating for people in US, Canada, UK and all other countries
 
@@ -163,5 +193,15 @@ num_in_ranking %>%
   summarise(favorite = sum(ranking, na.rm = T)) %>% 
   arrange(desc(favorite)) %>% 
   head(2)
+```
+
+Alternative way
+
+```{r}
+num_in_ranking %>%
+  mutate(country = if_else(country %in% c("united states", "canada", "united kingdom"), country, "other")) %>%
+  group_by(country, candy_type) %>%
+  summarise(avg_ranking = mean(ranking, na.rm = TRUE)) %>%
+  filter(avg_ranking == max(avg_ranking))
 ```
 
