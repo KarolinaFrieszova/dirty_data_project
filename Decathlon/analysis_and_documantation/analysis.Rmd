@@ -1,0 +1,62 @@
+---
+title: "Decathlon Data Analysis"
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+
+decathlon <- read_rds("/Users/codeclanstudent/codeclan_projects/dirty_data_project_karolina/task1/clean_data/decathlon.rds")
+```
+
+
+1. Athlete with longest long jump seen in the data
+
+```{r}
+decathlon %>%
+  select(athlete, event, score) %>% 
+  filter(event == "long_jump") %>%
+  arrange(desc(score)) %>%
+  head(1)
+```
+2. Average 100m time per competition
+
+```{r}
+decathlon %>%
+  filter(event == "sprint_100m") %>%
+  group_by(competition) %>%
+  summarise(avg_100m_time = mean(score))
+
+```
+
+3. Athlete with the highest total points across both competitions
+
+```{r}
+decathlon %>%
+  distinct(athlete, competition, points) %>%
+  group_by(athlete) %>%
+  summarise(points_total = sum(points)) %>%
+  arrange(desc(points_total)) %>%
+  head(1)
+```
+
+4. The shot-put scores for the top three competitors in each competition
+
+```{r}
+decathlon %>%
+  filter(rank %in% c(1, 2, 3)) %>%
+  filter(event == "shot_put") %>% 
+  select(athlete, event, score, competition)
+```
+5. The average points for competitors who ran the 400m in less than 50 seconds vs. those than ran 400m in more than 50 seconds
+
+```{r}
+decathlon %>%
+  filter(event == "sprint_400m") %>%
+  mutate(fast_400 = score < 50) %>%
+  group_by(fast_400) %>%
+  summarise(avg_points = mean(points))
+```
+
+
+
