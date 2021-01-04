@@ -18,3 +18,4 @@ The Decathlon data comes from _FactoMineR_ package.
 
 * library(FactoMineR)
 * data(decathlon)
+
