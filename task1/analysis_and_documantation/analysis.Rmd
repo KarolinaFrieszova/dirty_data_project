@@ -14,6 +14,14 @@ decathlon <- read_rds("/Users/codeclanstudent/codeclan_projects/dirty_data_proje
 
 ```{r}
 decathlon %>%
+  select(athlete, event, score) %>% 
+  filter(event == "long_jump") %>%
+  arrange(desc(score)) %>%
+  head(1)
+```
+
+```{r}
+decathlon %>%
   select(athlete, long_jump) %>% 
   slice_max(long_jump)
 ```
