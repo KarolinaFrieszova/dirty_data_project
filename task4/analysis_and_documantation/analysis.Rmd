@@ -4,10 +4,11 @@ output: html_notebook
 ---
 ```{r}
 library(tidyverse)
+library(here)
 ```
 
 ```{r}
-all_candy <- read_csv("/Users/codeclanstudent/codeclan_projects/dirty_data_project_karolina/task4/clean_data/candy.csv")
+all_candy <- read_csv(here("clean_data/candy.csv"))
 ```
 
 1. The total number of candy ratings (not raters) given across the three years.
@@ -195,13 +196,5 @@ num_in_ranking %>%
   head(2)
 ```
 
-Alternative way
 
-```{r}
-num_in_ranking %>%
-  mutate(country = if_else(country %in% c("united states", "canada", "united kingdom"), country, "other")) %>%
-  group_by(country, candy_type) %>%
-  summarise(avg_ranking = mean(ranking, na.rm = TRUE)) %>%
-  filter(avg_ranking == max(avg_ranking))
-```
 
