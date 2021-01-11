@@ -2,7 +2,7 @@
 
 ### Task 1 - Decathlon Data
 
-1. Clean data (This data has row names)
+1. Clean the detaset (This dataset has row names)
 
 1. Who had the longest long jump seen in the data?
 2. What was the average 100m time in each competition?
