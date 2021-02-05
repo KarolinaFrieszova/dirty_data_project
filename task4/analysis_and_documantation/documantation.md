@@ -19,7 +19,7 @@ After binding to a single dataset
 
 * unify casing for all the text data
 * clean country column - unify the text entries of per particular country
-* clean age column - extract first numerical value, convert to numerical, and change unreasonable entries to missing value represented by NA
+* clean age column - extract first numerical value, convert to numerical, and change unreasonable entries to the missing value represented by NA
 
 ### Findings
 1. The clean dataset corresponds to a total of 689203 candy ratings. 
