@@ -1,21 +1,10 @@
-# Decathlon Data
+### Decathlon Data - tasks
 
-### Description
-The data used refer to athletes' performance in ten sport events during two competitions.
+1. Clean the detaset (This dataset has row names)
 
-### Format
-A cleaned data frame has 410 observations and 6 variables:
-
-* The first column represents athletes' names. 
-* The columns two and three represent the ranking and the points obtained. 
-* The fourth column is categorical variable corresponding to two sport competitions (Olympic Games and Decastar).
-* Fifth column corresponds to the time perfomance - athlete's score for the sport event.
-* The last column corresponds to the type of the sport event. 
-
-### Source
-
-The Decathlon data comes from _FactoMineR_ package.
-
-* library(FactoMineR)
-* data(decathlon)
+1. Who had the longest long jump seen in the data?
+2. What was the average 100m time in each competition?
+3. Who had the highest total points across both competitions?
+4. What was the shot-put scores for the top three competitors in each competition?
+5. What was the average points for competitors who ran the 400m in less than 50 seconds vs. those than ran 400m in more than 50 seconds?
 
